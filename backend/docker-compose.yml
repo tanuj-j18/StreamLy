@@ -1,0 +1,50 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: local-postgres
+    environment:
+      POSTGRES_DB: streamly
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_HOST_AUTH_METHOD: md5
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    command: postgres -c listen_addresses='*' -c password_encryption=md5
+
+  redis:
+    image: redis:7-alpine
+    container_name: local-redis
+    ports:
+      - "6380:6379"
+    command: redis-server --protected-mode no
+
+  kafka:
+    image: confluentinc/cp-kafka:latest 
+    hostname: kafka
+    container_name: kafka
+    ports:
+      - "9092:9092" 
+      - "9093:9093" 
+    environment:
+      KAFKA_CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk  
+      KAFKA_KRAFT_MODE: "true"
+      KAFKA_PROCESS_ROLES: "controller,broker"
+      KAFKA_NODE_ID: 1
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@kafka:9093"
+      KAFKA_LISTENERS: "PLAINTEXT://kafka:9093,EXTERNAL://0.0.0.0:9092"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:9093,EXTERNAL://127.0.0.1:9092"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT"
+      KAFKA_CONTROLLER_LISTENER_NAMES: "PLAINTEXT"
+      KAFKA_INTER_BROKER_LISTENER_NAME: "EXTERNAL"
+      KAFKA_BROKER_ID: 1
+      KAFKA_LOG_DIRS: "/tmp/kraft-kafka-logs"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_JMX_PORT: 9999 
+      KAFKA_JMX_HOSTNAME: localhost
+
+volumes:
+  postgres_data:
