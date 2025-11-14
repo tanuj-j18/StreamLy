@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "src/services/presence.service.ts",
+    "src/services/readReceipt.service.ts",
+    "src/socket-new.ts",
+    "src/routes/auth.ts",
+    "src/routes/fileMessage.routes.ts",
+    "src/middlewares/rateLimiter.middleware.ts",
+    "src/middlewares/security.middleware.ts",
+    "src/middlewares/validation.middleware.ts",
+    "src/utils/bcrypt.utils.ts",
+    "src/validations",
+    "src/controllers/auth.controller.ts",
+    "src/controllers/chat.controller.fixed.ts",
+    "src/controllers/chat.controller.new.ts",
+    "src/controllers/message.controller.ts"
+  ]
+}
