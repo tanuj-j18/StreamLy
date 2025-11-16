@@ -1,0 +1,8 @@
+{
+  "version": "5.22.0",
+  "dialect": "postgresql",
+  "id": "20250123000001_init",
+  "prevId": "00000000000000_",
+  "migrationHash": "abc123def456789",
+  "executedAt": "2025-01-23T00:00:01.000Z"
+}
